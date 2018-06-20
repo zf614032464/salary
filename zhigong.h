@@ -2,8 +2,8 @@
 #include<fstream>
 #include<string>
 const int M=100;//定义常量
-using namespace std;
 static int n=0;//定义静态变量 
+using namespace std;
 struct zhigong{//定义结构体
 	string id;//工号
 	string name;//姓名
