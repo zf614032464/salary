@@ -2,7 +2,7 @@
 #include<fstream>
 #include<string>
 const int M=100;//定义常量
-static int n=0;//定义静态变量 
+int static n;//定义静态变量 
 using namespace std;
 struct zhigong{//定义结构体
 	string id;//工号
@@ -17,7 +17,7 @@ struct zhigong{//定义结构体
 	struct zhigong *prev; //定义前指针 
     struct zhigong *next;//定义后指针 
 };
-void read(zhigong zggz[],int a);//文件读取
+void read(zhigong zggz[]);//文件读取
 void wirte(zhigong zggz[]);//文件写入
 void find(zhigong zggz[]);//查询函数
 void list(zhigong zggz[]);//浏览函数
