@@ -3,21 +3,23 @@ int main()
 {
 	zhigong stu[M];
 	int m;
-	read(stu,3);
-	cout<<"欢迎来到职工工资管理系统，请输入按照命令提示，进行操作"<<endl;
-	cout<<"输入1表示查询，2表示修改，3表示添加，4表示删除，5表示浏览 ，6表示保存 ，7表示退出"<<endl;
-	cout<<"请输入你的指令"<<endl;
-
+	read(stu);
+	cout<<"         欢迎来到职工工资管理系统，请按照命令提示输入，进行操作"<<endl;
+	cout<<"                        输出提示信息及功能菜单"<<endl;
+	cout<<"                         1.查询 2.修改 3.添加"<<endl;
+	cout<<"                         4.删除 5.浏览 6.保存"<<endl;
+	cout<<"                                7.退出"<<endl;
+	cout<<"                         请输入你的指令"<<endl;
 	while(cin>>m)//循环命令
 	{
 		switch(m){
-		    case 1:find(stu);break;
-			case 2:modify(stu);break;
-			case 3:add(&stu[n]);break;
-			case 4:del(stu);break;
-			case 5:list(stu);break;
-			case 6:wirte(stu);break;
-			case 7:return 0;
+		    case 1:find(stu);break;//查询
+			case 2:modify(stu);break;//修改
+			case 3:add(stu);break;//添加
+			case 4:del(stu);break;//删除
+			case 5:list(stu);break;//浏览
+			case 6:wirte(stu);break;//保存
+			case 7:return 0;//退出
 			default:cout<<"此指令不存在，请重新输入"<<endl;
 		}
 	}
