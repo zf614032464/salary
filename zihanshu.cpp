@@ -1,5 +1,5 @@
 #include"zhigong.h"
-void read(zhigong zggz[])//文件读取
+void read(zhigong zggz[])    //文件读取
 {
 	fstream f("gx.dat",ios::in|ios::binary);//以二进制方式打开一个输入文件
 	if(!f)
@@ -24,7 +24,7 @@ void read(zhigong zggz[])//文件读取
 }
 
 void wirte(zhigong zggz[])
-{//文件保存
+{                               //文件保存
 	if(n<1)
 		{
 			cout<<"职工人数为0，无法写入"<<endl;
@@ -42,32 +42,16 @@ void wirte(zhigong zggz[])
 	{
 		if(!f.eof())//判断文件是否到达末尾 
 		{
-		//f.write((char*)&zggz[i],sizeof(zggz[i]));
-		f<<zggz[i].id<<zggz[i].name<<zggz[i].gangwei<<zggz[i].xinji<<zggz[i].zhiwu<<zggz[i].jixiao<<zggz[i].yingfa<<zggz[i].geren<<zggz[i].shifa;
+		f<<zggz[i].id<<" "<<zggz[i].name<<" "<<zggz[i].gangwei<<" "<<zggz[i].xinji<<" "<<zggz[i].zhiwu<<" "<<zggz[i].jixiao<<" "<<zggz[i].yingfa<<" "<<zggz[i].geren<<" "<<zggz[i].shifa<<" ";
 		}
 	}
 	f.close();
-    
-	/*zhigong zggz1[3];
-	fstream f1("gz.dat",ios::in|ios::binary);
-	if(!f1)
-	{
-		cout<<"Cannot open file"<<endl;
-		abort();
-	}
-	for(int i=0;i<n;i++)
-	{
-		//f1.read((char*)&zggz[i],sizeof(zggz[i]));
-		f1>>zggz1[i].id>>zggz1[i].name>>zggz1[i].gangwei>>zggz1[i].xinji>>zggz1[i].zhiwu>>zggz1[i].jixiao>>zggz1[i].yingfa>>zggz1[i].geren>>zggz1[i].shifa;
-		cout<<zggz1[i].id<<" "<<zggz1[i].name<<"      "<<zggz1[i].gangwei<<"      "<<zggz1[i].xinji<<"      "<<zggz1[i].zhiwu<<"      ";
-			cout<<zggz1[i].jixiao<<"      "<<zggz1[i].yingfa<<"      "<<zggz1[i].geren<<"      "<<zggz1[i].shifa<<endl;
-	}
-	f1.close();*/
+ 
 	cout<<"                      文件已保存，请你进行下一步命令"<<endl;
 }
 
 void find(zhigong zggz[])
-{//查询函数
+{                             //查询函数
 	string gohao;//定义字符串
 	int i;
 	cout<<"请输入你要查询的工号或姓名"<<endl;//通过工号或姓名进行查找
@@ -111,7 +95,7 @@ void list(zhigong zggz[])
 void modify(zhigong zggz[])
 {//修改函数
 	string gohao;//定义字符串
-	int i,k;
+	int i,k,p;
 	zhigong a;
 	cout<<"请输入你要修改的工号或姓名"<<endl;//通过工号或姓名进行查找
     cin>>gohao;
@@ -127,7 +111,7 @@ void modify(zhigong zggz[])
 
 			cout<<"输入1表示确认修改，输入0表示放弃修改"<<endl;
 			cin>>k;
-			if(k==1)
+			if(k==1)//确认修改的操作
 			{
 				cout<<"请重新录入职工工号、姓名、岗位工资、薪级工资、职务津贴、绩效工资"<<endl;
 				cout<<"工号：";
@@ -157,7 +141,20 @@ void modify(zhigong zggz[])
 			    cout<<zggz[i].id<<" "<<zggz[i].name<<"      "<<zggz[i].gangwei<<"      "<<zggz[i].xinji<<"      "<<zggz[i].zhiwu<<"      ";
 		        cout<<zggz[i].jixiao<<"      "<<zggz[i].yingfa<<"      "<<zggz[i].geren<<"      "<<zggz[i].shifa<<endl;
 				cout<<"                     职工信息已修改，请进行下一步命令。"<<endl;
-			    return;
+
+				cout<<"输入1表示确认保存修改，输入0表示放弃保存修改"<<endl;
+				cin>>p;
+				if(p==1)
+				{
+					wirte(zggz);//确认保存的操作
+			        return;
+				}
+
+				else
+				{
+					cout<<"职工信息已修改，请你进行下一步命令！"<<endl;//放弃保存后的操作
+				    return;
+				}
 			}
 
 			else
@@ -179,7 +176,7 @@ void modify(zhigong zggz[])
 void del(zhigong zggz[])//删除函数
 {
 	string gohao;//定义字符串
-	int i,j,k;
+	int i,j,k,p;
 	cout<<"请输入你要删除的工号或姓名"<<endl;//通过工号或姓名进行查找
     cin>>gohao;
 
@@ -201,6 +198,20 @@ void del(zhigong zggz[])//删除函数
 					zggz[j]=zggz[j+1];
 				}
 			n=n-1;
+
+			cout<<"输入1表示确认保存删除，输入0表示放弃保存删除"<<endl;
+				cin>>p;
+				if(p==1)
+				{
+					wirte(zggz);//确认删除的操作
+			        return;
+				}
+
+				else
+				{
+					cout<<"职工信息已修改，请你进行下一步命令！"<<endl;//放弃删除后的操作
+				    return;
+				}
 
 			cout<<"删除后剩余职工的信息为："<<endl;
 			cout<<"工号 "<<"姓名   "<<"岗位工资 "<<"薪级工资 "<<"职务津贴 "<<"绩效工资 "<<"应发工资 "<<"个人所得税 "<<"实发工资 "<<endl;
@@ -290,32 +301,32 @@ void grsds(zhigong *p1)//计算个人所得税函数
 
 		else if(p1->yingfa>5000&&p1->yingfa<=20000)                                          //应发工资在5000到20000
 			{
-				p1->geren=(p1->yingfa-5000)*0.2+15000*0.15+1500*0.1+500*0.05;
+				p1->geren=(p1->yingfa-5000)*0.2+3000*0.15+1500*0.1+500*0.05;
 		    }
 
 		else if(p1->yingfa>20000&&p1->yingfa<=40000)                                                     //应发工资在20000到40000
 			{
-				p1->geren=(p1->yingfa-20000)*0.25+20000*0.2+15000*0.15+1500*0.1+500*0.05;
+				p1->geren=(p1->yingfa-20000)*0.25+15000*0.2+3000*0.15+1500*0.1+500*0.05;
 		    }
 
 		else if(p1->yingfa>40000&&p1->yingfa<=60000)                                                                 //应发工资在40000到60000
 			{
-				p1->geren=(p1->yingfa-40000)*0.3+20000*0.25+20000*0.2+15000*0.15+1500*0.1+500*0.05;
+				p1->geren=(p1->yingfa-40000)*0.3+20000*0.25+15000*0.2+3000*0.15+1500*0.1+500*0.05;
 		    }
 
 		else if(p1->yingfa>60000&&p1->yingfa<=80000)                                                                            //应发工资在60000到80000
 			{
-				p1->geren=(p1->yingfa-60000)*0.35+20000*0.3+20000*0.25+20000*0.2+15000*0.15+1500*0.1+500*0.05;
+				p1->geren=(p1->yingfa-60000)*0.35+20000*0.3+20000*0.25+15000*0.2+3000*0.15+1500*0.1+500*0.05;
 		    }
 
 		else if(p1->yingfa>80000&&p1->yingfa<=100000)                                                                                   //应发工资在80000到100000
 			{
-				p1->geren=(p1->yingfa-80000)*0.4+20000*0.35+20000*0.3+20000*0.25+20000*0.2+15000*0.15+1500*0.1+500*0.05;
+				p1->geren=(p1->yingfa-80000)*0.4+20000*0.35+20000*0.3+20000*0.25+15000*0.2+3000*0.15+1500*0.1+500*0.05;
 		    }
 
 		else                                                                                                                      //应发工资超过100000
 			{
-				p1->geren=(p1->yingfa-100000)*0.45+20000*0.4+20000*0.35+20000*0.3+20000*0.25+20000*0.2+15000*0.15+1500*0.1+500*0.05;
+				p1->geren=(p1->yingfa-100000)*0.45+20000*0.4+20000*0.35+20000*0.3+20000*0.25+15000*0.2+3000*0.15+1500*0.1+500*0.05;
 		    }
 }
 
