@@ -5,16 +5,16 @@ const int M=100;//定义常量
 int static n;//定义静态变量 
 using namespace std;
 struct zhigong{//定义结构体
-	string id;//工号
-	string name;//姓名
-	float gangwei;//岗位工资
+    string id;//工号
+    string name;//姓名
+    float gangwei;//岗位工资
     float xinji;//薪级工资
-	float zhiwu;//职务津贴
-	float jixiao;//绩效工资
-	float yingfa;//应发工资
-	float geren;//个人所得税
-	float shifa;//实发工资
-	struct zhigong *prev; //定义前指针 
+    float zhiwu;//职务津贴
+    float jixiao;//绩效工资
+    float yingfa;//应发工资
+    float geren;//个人所得税
+    float shifa;//实发工资
+    struct zhigong *prev; //定义前指针 
     struct zhigong *next;//定义后指针 
 };
 void read(zhigong zggz[]);//文件读取
