@@ -1,7 +1,7 @@
 #include"zhigong.h"
 void read(zhigong zggz[])    //文件读取
 {
-	fstream f("gx.dat",ios::in|ios::binary);//以二进制方式打开一个输入文件
+	fstream f("gz.dat",ios::in|ios::binary);//以二进制方式打开一个输入文件
 	if(!f)
 	{
 		cout<<"Cannot open file"<<endl;
@@ -18,10 +18,13 @@ void read(zhigong zggz[])    //文件读取
 		}//从文件读取数据到结构体数组
 
 		else
+		{
 			break;
-	}
+		}	
+	 }
+	n=n-1;
 	f.close();
-}
+ }
 
 void wirte(zhigong zggz[])
 {                               //文件保存
@@ -242,6 +245,7 @@ void del(zhigong zggz[])//删除函数
 
 void add(zhigong *p)//增加函数
 {
+	int k;
 	if(n==100)
 	{
 		cout<<"          职工人数已满，不能添加职工了"<<endl;
@@ -273,6 +277,21 @@ void add(zhigong *p)//增加函数
 	cout<<"工号 "<<"姓名   "<<"岗位工资 "<<"薪级工资 "<<"职务津贴 "<<"绩效工资 "<<"应发工资 "<<"个人所得税 "<<"实发工资 "<<endl;
 	cout<<p->id<<" "<<p->name<<"      "<<p->gangwei<<"      "<<p->xinji<<"      "<<p->zhiwu<<"      ";
 	cout<<p->jixiao<<"      "<<p->yingfa<<"      "<<p->geren<<"      "<<p->shifa<<endl;
+
+	cout<<"输入1表示确认保存增加，输入0表示放弃保存增加"<<endl;
+				cin>>k;
+				if(k==1)
+				{
+					p=p-n+1;
+					wirte(p);//确认增加的操作
+			        return;
+				}
+
+				else
+				{
+					cout<<"职工信息已修改，请你进行下一步命令！"<<endl;//放弃增加后的操作
+				    return;
+				}
 	cout<<"                        请你进行下一步命令！"<<endl;
 	}
 }
