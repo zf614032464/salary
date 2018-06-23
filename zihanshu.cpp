@@ -51,14 +51,14 @@ void wirte(zhigong zggz[])
       }
     f.close();
  
-    cout<<"                      文件已保存，请你进行下一步命令"<<endl;
+    cout<<"       *******************文件已保存，请你进行下一步命令*****************"<<endl;
 }
 
 void find(zhigong zggz[])
 {                             //查询函数
     string gohao;//定义字符串
     int i;
-    cout<<"请输入你要查询的工号或姓名"<<endl;//通过工号或姓名进行查找
+    cout<<"       ********************请输入你要查询的工号或姓名*******************"<<endl;//通过工号或姓名进行查找
     cin>>gohao;
 
     for(i=0;i<n;i++)
@@ -72,7 +72,7 @@ void find(zhigong zggz[])
                add_wages(&zggz[i]);//更正职工实发工资
                cout<<zggz[i].id<<" "<<zggz[i].name<<"      "<<zggz[i].gangwei<<"      "<<zggz[i].xinji<<"      "<<zggz[i].zhiwu<<"      ";
                cout<<zggz[i].jixiao<<"      "<<zggz[i].yingfa<<"      "<<zggz[i].geren<<"      "<<zggz[i].shifa<<endl;
-               cout<<"                              请你进行下一步命令！"<<endl;
+               cout<<"       *********************请你进行下一步命令！*************************"<<endl;
                break;
              }
         }
@@ -96,7 +96,7 @@ void list(zhigong zggz[])
          cout<<zggz[i].id<<" "<<zggz[i].name<<"      "<<zggz[i].gangwei<<"      "<<zggz[i].xinji<<"      "<<zggz[i].zhiwu<<"      ";
          cout<<zggz[i].jixiao<<"      "<<zggz[i].yingfa<<"      "<<zggz[i].geren<<"      "<<zggz[i].shifa<<endl;
        } 
-    cout<<"                    请你进行下一步命令！"<<endl;
+    cout<<"       *********************请你进行下一步命令！*************************"<<endl;
 }
 
 void modify(zhigong zggz[])
@@ -104,7 +104,7 @@ void modify(zhigong zggz[])
     string gohao;//定义字符串
     int i,k,p;
     zhigong a;
-    cout<<"请输入你要修改的工号或姓名"<<endl;//通过工号或姓名进行查找
+    cout<<"       ********************请输入你要查询的工号或姓名*******************"<<endl;//通过工号或姓名进行查找
     cin>>gohao;
 
     for(i=0;i<n;i++)
@@ -116,7 +116,7 @@ void modify(zhigong zggz[])
                cout<<zggz[i].id<<" "<<zggz[i].name<<"      "<<zggz[i].gangwei<<"      "<<zggz[i].xinji<<"      "<<zggz[i].zhiwu<<"      ";
                cout<<zggz[i].jixiao<<"      "<<zggz[i].yingfa<<"      "<<zggz[i].geren<<"      "<<zggz[i].shifa<<endl;
 
-               cout<<"输入1表示确认修改，输入0表示放弃修改"<<endl;
+               cout<<"       ****************输入1表示确认修改，输入0表示放弃修改***************"<<endl;
                cin>>k;
                if(k==1)//确认修改的操作
                  {
@@ -147,27 +147,28 @@ void modify(zhigong zggz[])
                    cout<<"工号 "<<"姓名   "<<"岗位工资 "<<"薪级工资 "<<"职务津贴 "<<"绩效工资 "<<"应发工资 "<<"个人所得税 "<<"实发工资 "<<endl;
                    cout<<zggz[i].id<<" "<<zggz[i].name<<"      "<<zggz[i].gangwei<<"      "<<zggz[i].xinji<<"      "<<zggz[i].zhiwu<<"      ";
                    cout<<zggz[i].jixiao<<"      "<<zggz[i].yingfa<<"      "<<zggz[i].geren<<"      "<<zggz[i].shifa<<endl;
-                   cout<<"                     职工信息已修改，请进行下一步命令。"<<endl;
+                   cout<<"       ***************职工信息已修改，请你进行下一步命令！***************"<<endl;
 
-                   cout<<"输入1表示确认保存修改，输入0表示放弃保存修改"<<endl;
+                   cout<<"       ****************输入1表示确认保存，输入0表示放弃保存***************"<<endl;
                    cin>>p;
 
                    if(p==1)
                        {
                           wirte(zggz);//确认保存的操作
+                          cout<<"       *********************请你进行下一步命令！*************************"<<endl;
                           return;
                        }
 
                    else
                        {
-                          cout<<"职工信息已修改，请你进行下一步命令！"<<endl;//放弃保存后的操作
+                          cout<<"       *************职工信息已修改，请你进行下一步命令！*****************"<<endl;//放弃保存后的操作
                           return;
                        }
                  }
 
               else
                   {
-                     cout<<"                    请你进行下一步命令！"<<endl;//放弃修改后的操作
+                     cout<<"       *********************请你进行下一步命令！*************************"<<endl;//不修改后的操作
                      return;
                   }
              }
@@ -178,14 +179,14 @@ void modify(zhigong zggz[])
            cout<<"系统中找不到此职工信息，请你核实你输入的工号或姓名是否有错，请重新输入查询命令再进行查询"<<endl;
         }
 
-    cout<<"                    请你进行下一步命令！"<<endl;
+    cout<<"       *********************请你进行下一步命令！*************************"<<endl;
 }
 
 void del(zhigong zggz[])  //删除函数
 {
     string gohao;//定义字符串
     int i,j,k,p;
-    cout<<"请输入你要删除的工号或姓名"<<endl;//通过工号或姓名进行查找
+    cout<<"       ********************请输入你要查询的工号或姓名*******************"<<endl;//通过工号或姓名进行查找
     cin>>gohao;
 
     for(i=0;i<n;i++)
@@ -197,7 +198,7 @@ void del(zhigong zggz[])  //删除函数
                    cout<<zggz[i].id<<" "<<zggz[i].name<<"      "<<zggz[i].gangwei<<"      "<<zggz[i].xinji<<"      "<<zggz[i].zhiwu<<"      ";
                    cout<<zggz[i].jixiao<<"      "<<zggz[i].yingfa<<"      "<<zggz[i].geren<<"      "<<zggz[i].shifa<<endl;
 
-                   cout<<"输入1表示删除，输入0表示放弃删除"<<endl;
+                   cout<<"       ****************输入1表示确认删除，输入0表示放弃删除***************"<<endl;
                    cin>>k;
                    if(k==1)
                        {
@@ -207,7 +208,7 @@ void del(zhigong zggz[])  //删除函数
                                }
                    n=n-1;
 
-                   cout<<"输入1表示确认保存删除，输入0表示放弃保存删除"<<endl;
+                   cout<<"       ****************输入1表示确认保存，输入0表示放弃保存***************"<<endl;
                    cin>>p;
                    if(p==1)
                         {
@@ -217,7 +218,7 @@ void del(zhigong zggz[])  //删除函数
 
                    else
                         {
-                           cout<<"职工信息已修改，请你进行下一步命令！"<<endl;//放弃删除后的操作
+                           cout<<"       *************职工信息已修改，请你进行下一步命令！*****************"<<endl;//放弃删除后的操作
                            return;
                         }
 
@@ -229,13 +230,13 @@ void del(zhigong zggz[])  //删除函数
                            cout<<zggz[i].jixiao<<"      "<<zggz[i].yingfa<<"      "<<zggz[i].geren<<"      "<<zggz[i].shifa<<endl;
                         }
 
-                   cout<<"                      请你进行下一步命令！"<<endl;
+                   cout<<"       *********************请你进行下一步命令！*************************"<<endl;
                    return;
                        }
 
                    else
                        {
-                          cout<<"                    请你进行下一步命令！"<<endl;//放弃删除后的操作
+                          cout<<"       *********************请你进行下一步命令！*************************"<<endl;//未找到职工信息后的操作
                           return;
                        }
                 }
@@ -245,7 +246,7 @@ void del(zhigong zggz[])  //删除函数
         {
            cout<<"系统中找不到此职工信息，请你核实你输入的工号或姓名是否有错，请重新输入查询命令再进行查询"<<endl;
         }
-    cout<<"                      请你进行下一步命令！"<<endl;
+    cout<<"       *********************请你进行下一步命令！*************************"<<endl;
 }
 
 void add(zhigong *p)//增加函数
@@ -254,8 +255,8 @@ void add(zhigong *p)//增加函数
 	zhigong *q=p;
     if(n==100)
         {
-           cout<<"          职工人数已满，不能添加职工了"<<endl;
-           cout<<"                    请你输入其他命令"<<endl;
+           cout<<"       **************职工人数已满，不能添加职工了***************"<<endl;
+           cout<<"       *********************请你输入其他命令*************************"<<endl;
            return;
         }
 
@@ -263,13 +264,13 @@ void add(zhigong *p)//增加函数
         {
           p=p+n;//把指针移到数组末尾
           n=n+1;
-          cout<<"请你录入用户信息"<<endl;
+          cout<<"       ***********************请你录入用户信息***************************"<<endl;//通过工号或姓名进行查找
           cout<<"工号：";
           cin>>p->id;//工号
           for(int i=0;i<n-1;i++,q++)//判断工号相同的不能添加
                if(p->id==q->id)
                   {
-                     cout<<"                            工号已存在，请重新输入"<<endl;
+                     cout<<"       ****************工号已存在，请重新输入命令************************"<<endl;
                      return;
                   }
           cout<<"姓名：";
@@ -290,7 +291,7 @@ void add(zhigong *p)//增加函数
           cout<<p->id<<" "<<p->name<<"      "<<p->gangwei<<"      "<<p->xinji<<"      "<<p->zhiwu<<"      ";
           cout<<p->jixiao<<"      "<<p->yingfa<<"      "<<p->geren<<"      "<<p->shifa<<endl;
 
-          cout<<"输入1表示确认保存增加，输入0表示放弃保存增加"<<endl;
+          cout<<"       ****************输入1表示确认增加，输入0表示放弃增加***************"<<endl;
           cin>>k;
           if(k==1)
                 {
@@ -301,10 +302,10 @@ void add(zhigong *p)//增加函数
 
           else
                 {
-                    cout<<"职工信息已修改，请你进行下一步命令！"<<endl;//放弃增加后的操作
+                    cout<<"       *********************请你进行下一步命令！*************************"<<endl;//放弃增加后的操作
                     return;
                 }
-    cout<<"                        请你进行下一步命令！"<<endl;
+    cout<<"       *********************请你进行下一步命令！*************************"<<endl;
         }
 }
 
