@@ -20,7 +20,7 @@ int main()
 	
     while(scanf("%d",&m))//循环命令
       {
-
+          system("cls");//清屏函数
 		  switch(m){
                   case 1:find(stu); break;//查询
 
@@ -44,6 +44,7 @@ int main()
         printf("       *                   4.删除 5.浏览 6.保存                         *\n");
         printf("       *                          7.退出                                *\n");
         printf("       *********************请输入你的指令*******************************\n");
+        
       }
      
    return 0;
