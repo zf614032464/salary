@@ -23,6 +23,7 @@ Funtion List:
 #include<string.h>
 #include<stdarg.h>
 #include<stdlib.h>
+#include<malloc.h>
 const int M=100;//定义常量
 int static n;//定义静态变量 
 using namespace std;
@@ -37,12 +38,8 @@ struct zhigong{//定义结构体
     float yingfa;//应发工资
     float geren;//个人所得税
     float shifa;//实发工资
-};
-
-struct Node{
-  int data;
-  struct Node *prior;     //指向前驱结点
-  struct Node *next;     //指向后继结点
+    struct zhigong *prior;//指向前驱结点
+    struct zhigong *next; //指向后继结点
 };
 
 void read(zhigong zggz[]);//文件读取
@@ -55,3 +52,4 @@ void add(zhigong *p);//增加函数
 void grsds(zhigong *p1);//计算个人所得税函数
 void add_money(zhigong *p1);//计算应发工资   
 void add_wages(zhigong *p1);//计算实发工资	
+zhigong *createlist(zhigong zggz[]);//创建双向链表

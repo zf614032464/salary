@@ -38,6 +38,42 @@ void read(zhigong zggz[])    //文件读取
  }
 
 /********************************************
+Function: createlist()
+Description: 作为子函数创建双向链表
+Calls By: main()
+Input: 数组作为形参，地址作为实参
+Other: 无返回值
+*********************************************/
+zhigong *createlist(zhigong zggz[])       //创建有n个元素的双向链表 
+{
+    zhigong *head, *p, *q;
+    head = (zhigong *)malloc(sizeof(zhigong));//为头部指针分配内存空间
+	head->prior = head;
+    head->next = head;
+    p = head;
+    for(int i=0;i<n;i++)//创建n个双向链表元素
+    {
+        q = (zhigong *)malloc(sizeof(zhigong));
+		strcpy(q->id ,zggz[i].id);//把数组中的数据分配到双向链表数据域中
+		strcpy(q->name,zggz[i].name);
+		q->gangwei=zggz[i].gangwei;
+		q->xinji=zggz[i].xinji;
+		q->zhiwu=zggz[i].zhiwu;
+		q->jixiao=zggz[i].jixiao;
+		q->yingfa=zggz[i].yingfa;
+		q->geren=zggz[i].geren;
+		q->shifa=zggz[i].shifa;
+        p->next = q;           //p的下节点指向q
+		head->prior = q;       //head的前节点指向q
+		q->prior = p;          //q的前节点指向p
+        q->next = head;        //q的下节点指向head
+        p = q;                 //q赋值给p
+    }
+    return head;
+}
+
+
+/********************************************
 Function: write()
 Description: 作为子函数读取数据到文件中
 Calls: close()
@@ -70,7 +106,7 @@ void wirte(zhigong zggz[])
       }
     f.close();
  
-    printf("       *******************文件已保存，请你进行下一步命令*****************\n");
+    printf("       =====================文件已保存，请你进行下一步命令=================\n");
 }
 
 /********************************************
@@ -85,8 +121,8 @@ void find(zhigong zggz[])
 {                             //查询函数
     char gohao[11];//定义字符串
     int i;
-    printf("       ********************请输入你要查询的工号或姓名*******************\n");//通过工号或姓名进行查找
-    scanf("%s",&gohao);
+    printf("       ====================请输入你要查询的工号或姓名===================\n");//通过工号或姓名进行查找
+    scanf("%s",gohao);
 
     for(i=0;i<n;i++)
         {
@@ -96,10 +132,10 @@ void find(zhigong zggz[])
                add_money(&zggz[i]);//更正职工应发工资
                grsds(&zggz[i]);//更正职工个人所得税
                add_wages(&zggz[i]);//更正职工实发工资
-               printf("工号：%s\t姓名：%s\t岗位工资：%lf\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
-               printf("薪级工资：%lf\t职务津贴：%lf\t绩效工资：%lf\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
-               printf("应发工资：%lf\t个人所得税：%lf\t实发工资：%lf\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
-               printf("       *********************请你进行下一步命令！*************************\n");
+               printf("工号：%s\t姓名：%s\t岗位工资：%.2f\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
+               printf("薪级工资：%.2f\t职务津贴：%.2f\t绩效工资：%.2f\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
+               printf("应发工资：%.2f\t个人所得税：%.2f\t实发工资：%.2f\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
+               printf("       =====================请你进行下一步命令！========================\n");
                break;
              }
         }
@@ -115,25 +151,30 @@ void find(zhigong zggz[])
 Function: list()
 Description: 作为子函数浏览职工信息
 Calls By: main()
-Input: 数组作为形参，地址作为实参
+Input: 指针作为形参，地址作为实参
 Other: 无返回值
 *********************************************/
 
-void list(zhigong zggz[])
-{                      //浏览函数
+void list(zhigong *head)
+{                           //浏览函数
+	zhigong *p;
+    p = head;
+    p = p->next;
     printf("职工信息为：\n");
-    for(int i=0; i < n; i++)
+    //for(int i=0; i < n; i++)
+    while(p!=head)
        {
-         add_money(&zggz[i]);//更正职工应发工资
-         grsds(&zggz[i]);//更正职工个人所得税
-         add_wages(&zggz[i]);//更正职工实发工资
-         printf("工号：%s\t姓名：%s\t岗位工资：%lf\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
-         printf("薪级工资：%lf\t职务津贴：%lf\t绩效工资：%lf\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
-         printf("应发工资：%lf\t个人所得税：%lf\t实发工资：%lf\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
+         add_money(p);//更正职工应发工资
+         grsds(p);//更正职工个人所得税
+         add_wages(p);//更正职工实发工资
+         printf("工号：%s\t姓名：%s\t岗位工资：%.2f\n",p->id,p->name,p->gangwei);
+         printf("薪级工资：%.2f\t职务津贴：%.2f\t绩效工资：%.2f\n",p->xinji,p->zhiwu,p->jixiao);
+         printf("应发工资：%.2f\t个人所得税：%.2f\t实发工资：%.2f\n",p->yingfa,p->geren,p->shifa);
          printf("\n");
+		 p=p->next;
        }
 
-    printf("       *********************请你进行下一步命令！*************************\n");
+    printf("       =====================请你进行下一步命令！========================\n");
 }
 
 /********************************************
@@ -150,19 +191,19 @@ void modify(zhigong zggz[])
     char gohao[11];//定义字符串
     int i, k, p;
     zhigong a;
-    printf("       ********************请输入你要查询的工号或姓名*******************\n");//通过工号或姓名进行查找
-    scanf("%s",&gohao);
+    printf("       ====================请输入你要查询的工号或姓名===================\n");//通过工号或姓名进行查找
+    scanf("%s",gohao);
 
     for(i=0; i < n; i++)
         {
           if(strcmp(zggz[i].id,gohao)==0 || strcmp(zggz[i].name,gohao)==0)
              {
                printf("职工信息为：\n");//输出职工修改信息前的信息
-               printf("工号：%s\t姓名：%s\t岗位工资：%lf\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
-               printf("薪级工资：%lf\t职务津贴：%lf\t绩效工资：%lf\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
-               printf("应发工资：%lf\t个人所得税：%lf\t实发工资：%lf\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
+               printf("工号：%s\t姓名：%s\t岗位工资：%.2f\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
+               printf("薪级工资：%.2f\t职务津贴：%.2f\t绩效工资：%.2f\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
+               printf("应发工资：%.2f\t个人所得税：%.2f\t实发工资：%.2f\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
 
-               printf("       ****************输入1表示确认修改，输入0表示放弃修改***************\n");
+               printf("       ================输入1表示确认修改，输入0表示放弃修改===============\n");
                scanf("%d",&k);
                if(k == 1)//确认修改的操作
                  {
@@ -190,31 +231,31 @@ void modify(zhigong zggz[])
                    add_wages(&zggz[i]);//职工实发工资
 
                    printf("职工信息修改后为：\n");//输出职工修改信息后的信息
-                   printf("工号：%s\t姓名：%s\t岗位工资：%lf\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
-                   printf("薪级工资：%lf\t职务津贴：%lf\t绩效工资：%lf\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
-                   printf("应发工资：%lf\t个人所得税：%lf\t实发工资：%lf\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
+                   printf("工号：%s\t姓名：%s\t岗位工资：%.2f\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
+                   printf("薪级工资：%.2f\t职务津贴：%.2f\t绩效工资：%.2f\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
+                   printf("应发工资：%.2f\t个人所得税：%.2f\t实发工资：%.2f\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
                    printf("       ***************职工信息已修改，请你进行下一步命令！***************\n");
 
-                   printf("       ****************输入1表示确认保存，输入0表示放弃保存***************\n");
+                   printf("       ================输入1表示确认保存，输入0表示放弃保存===============\n");
                    scanf("%d",&p);
 
                    if(p == 1)
                        {
                           wirte(zggz);//确认保存的操作
-                          printf("       *********************请你进行下一步命令！*************************\n");
+                          printf("       =====================请你进行下一步命令！========================\n");
                           return;
                        }
 
                    else
                        {
-                          printf("       *************职工信息已修改，请你进行下一步命令！*****************\n");//放弃保存后的操作
+                          printf("       =============职工信息已修改，请你进行下一步命令！=================\n");//放弃保存后的操作
                           return;
                        }
                  }
 
               else
                   {
-                     printf("       *********************请你进行下一步命令！*************************\n");//不修改后的操作
+                     printf("       =====================请你进行下一步命令！========================\n");//不修改后的操作
                      return;
                   }
              }
@@ -225,7 +266,7 @@ void modify(zhigong zggz[])
            printf("系统中找不到此职工信息，请你核实你输入的工号或姓名是否有错，请重新输入查询命令再进行查询\n");
         }
 
-    printf("       *********************请你进行下一步命令！*************************\n");
+    printf("       =====================请你进行下一步命令！========================\n");
 }
 
 /********************************************
@@ -240,20 +281,20 @@ Other: 无返回值
 void del(zhigong zggz[])  //删除函数
 {
     char gohao[11];//定义字符串
-    int i, j, k, p;
-    printf("       ********************请输入你要查询的工号或姓名*******************\n");//通过工号或姓名进行查找
-    scanf("%s",&gohao);
+    int i, j, k, t;
+    printf("       ====================请输入你要查询的工号或姓名===================\n");//通过工号或姓名进行查找
+    scanf("%s",gohao);
 
     for(i=0; i < n; i++)
         {
             if(strcmp(zggz[i].id,gohao)==0 || strcmp(zggz[i].name,gohao)==0)
                 {
                    printf("删除的职工信息为：\n");//输出职工修改信息前的信息
-                   printf("工号：%s\t姓名：%s\t岗位工资：%lf\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
-                   printf("薪级工资：%lf\t职务津贴：%lf\t绩效工资：%lf\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
-                   printf("应发工资：%lf\t个人所得税：%lf\t实发工资：%lf\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
+                   printf("工号：%s\t姓名：%s\t岗位工资：%.2f\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
+                   printf("薪级工资：%.2f\t职务津贴：%.2f\t绩效工资：%.2f\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
+                   printf("应发工资：%.2f\t个人所得税：%.2f\t实发工资：%.2f\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
 
-                   printf("       ****************输入1表示确认删除，输入0表示放弃删除***************\n");
+                   printf("       ================输入1表示确认删除，输入0表示放弃删除===============\n");
                    scanf("%d", &k);
                    if(k==1)
                        {
@@ -263,9 +304,9 @@ void del(zhigong zggz[])  //删除函数
                                }
                    n = n - 1;
 
-                   printf("       ****************输入1表示确认保存，输入0表示放弃保存***************\n");
-                   scanf("%d", &p);
-                   if(p == 1)
+                   printf("       ================输入1表示确认保存，输入0表示放弃保存===============\n");
+                   scanf("%d", &t);
+                   if(t == 1)
                         {
                            wirte(zggz);//确认删除的操作
                            
@@ -273,27 +314,27 @@ void del(zhigong zggz[])  //删除函数
 
                    else
                         {
-                           printf("       *************职工信息已修改，请你进行下一步命令！*****************\n");//放弃删除后的操作
-                           
+                           printf("       =============职工信息已修改，请你进行下一步命令！================\n");//放弃删除后的操作
+                           return;
                         }
 
                    printf("删除后剩余职工的信息为：\n");
                    
                    for(i=0 ;i < n; i++)
                         {
-                           printf("工号：%s\t姓名：%s\t岗位工资：%lf\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
-                           printf("薪级工资：%lf\t职务津贴：%lf\t绩效工资：%lf\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
-                           printf("应发工资：%lf\t个人所得税：%lf\t实发工资：%lf\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
+                           printf("工号：%s\t姓名：%s\t岗位工资：%.2f\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
+                           printf("薪级工资：%.2f\t职务津贴：%.2f\t绩效工资：%.2f\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
+                           printf("应发工资：%.2f\t个人所得税：%.2f\t实发工资：%.2f\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
                            printf("\n");
                         }
 
-                   printf("       *********************请你进行下一步命令！*************************\n");
+                   printf("       =====================请你进行下一步命令！=========================\n");
                    return;
                        }
 
                    else
                        {
-                          printf("       *********************请你进行下一步命令！*************************\n");//未找到职工信息后的操作
+                          printf("       =====================请你进行下一步命令！========================\n");
                           return;
                        }
                 }
@@ -301,9 +342,9 @@ void del(zhigong zggz[])  //删除函数
 
     if(n == i)
         {
-           printf("系统中找不到此职工信息，请你核实你输入的工号或姓名是否有错，请重新输入查询命令再进行查询\n");
+           printf("系统中找不到此职工信息，请你核实你输入的工号或姓名是否有错，请重新输入查询命令再进行查询\n");//未找到职工信息后的操作
         }
-    printf("       *********************请你进行下一步命令！*************************\n");
+    printf("       =====================请你进行下一步命令！========================\n");
 }
 
 /********************************************
@@ -321,22 +362,22 @@ void add(zhigong *p)//增加函数
 	zhigong *q=p;
     if(n == 100)
         {
-           printf("       **************职工人数已满，不能添加职工了***************\n");
-           printf("       *********************请你输入其他命令*************************\n");
+           printf("       ==============职工人数已满，不能添加职工了===============\n");
+           printf("       =====================请你输入其他命令====================\n");
            return;
         }
 
     else
         {
           p = p + n;//把指针移到数组末尾
-          printf("       ***********************请你录入用户信息***************************\n");//通过工号或姓名进行查找
+          printf("       =======================请你录入用户信息===========================\n");//通过工号或姓名进行查找
           printf("工号：");
           scanf("%s", &p->id);//工号
           for(int i=0; i<n; i++, q++)//判断工号相同的不能添加
               { 
                   if(strcmp(p->id,q->id)==0)
                     {
-                      printf("       ****************工号已存在，请重新输入命令************************\n");
+                      printf("       ================工号已存在，请重新输入命令========================\n");
                       return;
 				     }
               }
@@ -355,11 +396,11 @@ void add(zhigong *p)//增加函数
           add_wages(p);//实发工资
           n = n + 1;//职工人数加1
           printf("职工信息为：\n");
-          printf("工号：%s\t姓名：%s\t岗位工资：%f\n",p->id,p->name,p->gangwei);
-          printf("薪级工资：%f\t职务津贴：%f\t绩效工资：%f\n",p->xinji,p->zhiwu,p->jixiao);
-          printf("应发工资：%f\t个人所得税：%f\t实发工资：%f\n",p->yingfa,p->geren,p->shifa);
+          printf("工号：%s\t姓名：%s\t岗位工资：%.2f\n",p->id,p->name,p->gangwei);
+          printf("薪级工资：%.2f\t职务津贴：%.2f\t绩效工资：%.2f\n",p->xinji,p->zhiwu,p->jixiao);
+          printf("应发工资：%.2f\t个人所得税：%.2f\t实发工资：%.2f\n",p->yingfa,p->geren,p->shifa);
 
-          printf("       ****************输入1表示确认增加，输入0表示放弃增加***************\n");
+          printf("       ================输入1表示确认增加，输入0表示放弃增加===============\n");
           scanf("%d",&k);
           if(k == 1)
                 {
@@ -370,10 +411,10 @@ void add(zhigong *p)//增加函数
 
           else
                 {
-                    printf("       *********************请你进行下一步命令！*************************\n");//放弃增加后的操作
+                    printf("       =====================请你进行下一步命令！========================\n");//放弃增加后的操作
                     return;
                 }
-    printf("       *********************请你进行下一步命令！*************************\n");
+    printf("       =====================请你进行下一步命令！========================\n");
         }
 }
 /********************************************
