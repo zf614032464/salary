@@ -52,4 +52,4 @@ void add(zhigong *p);//增加函数
 void grsds(zhigong *p1);//计算个人所得税函数
 void add_money(zhigong *p1);//计算应发工资   
 void add_wages(zhigong *p1);//计算实发工资	
-zhigong *createlist(zhigong zggz[]);//创建双向链表
+

@@ -37,41 +37,6 @@ void read(zhigong zggz[])    //文件读取
     f.close();
  }
 
-/********************************************
-Function: createlist()
-Description: 作为子函数创建双向链表
-Calls By: main()
-Input: 数组作为形参，地址作为实参
-Other: 无返回值
-*********************************************/
-zhigong *createlist(zhigong zggz[])       //创建有n个元素的双向链表 
-{
-    zhigong *head, *p, *q;
-    head = (zhigong *)malloc(sizeof(zhigong));//为头部指针分配内存空间
-	head->prior = head;
-    head->next = head;
-    p = head;
-    for(int i=0;i<n;i++)//创建n个双向链表元素
-    {
-        q = (zhigong *)malloc(sizeof(zhigong));
-		strcpy(q->id ,zggz[i].id);//把数组中的数据分配到双向链表数据域中
-		strcpy(q->name,zggz[i].name);
-		q->gangwei=zggz[i].gangwei;
-		q->xinji=zggz[i].xinji;
-		q->zhiwu=zggz[i].zhiwu;
-		q->jixiao=zggz[i].jixiao;
-		q->yingfa=zggz[i].yingfa;
-		q->geren=zggz[i].geren;
-		q->shifa=zggz[i].shifa;
-        p->next = q;           //p的下节点指向q
-		head->prior = q;       //head的前节点指向q
-		q->prior = p;          //q的前节点指向p
-        q->next = head;        //q的下节点指向head
-        p = q;                 //q赋值给p
-    }
-    return head;
-}
-
 
 /********************************************
 Function: write()
@@ -155,23 +120,21 @@ Input: 指针作为形参，地址作为实参
 Other: 无返回值
 *********************************************/
 
-void list(zhigong *head)
+void list(zhigong zggz[])
 {                           //浏览函数
-	zhigong *p;
-    p = head;
-    p = p->next;
+	
     printf("职工信息为：\n");
-    //for(int i=0; i < n; i++)
-    while(p!=head)
+  
+    for(int i=0;i<n;i++)
        {
-         add_money(p);//更正职工应发工资
-         grsds(p);//更正职工个人所得税
-         add_wages(p);//更正职工实发工资
-         printf("工号：%s\t姓名：%s\t岗位工资：%.2f\n",p->id,p->name,p->gangwei);
-         printf("薪级工资：%.2f\t职务津贴：%.2f\t绩效工资：%.2f\n",p->xinji,p->zhiwu,p->jixiao);
-         printf("应发工资：%.2f\t个人所得税：%.2f\t实发工资：%.2f\n",p->yingfa,p->geren,p->shifa);
+         add_money(zggz);       //更正职工应发工资
+         grsds(zggz);           //更正职工个人所得税
+         add_wages(zggz);       //更正职工实发工资
+         printf("工号：%s\t姓名：%s\t岗位工资：%.2f\n",zggz[i].id,zggz[i].name,zggz[i].gangwei);
+         printf("薪级工资：%.2f\t职务津贴：%.2f\t绩效工资：%.2f\n",zggz[i].xinji,zggz[i].zhiwu,zggz[i].jixiao);
+         printf("应发工资：%.2f\t个人所得税：%.2f\t实发工资：%.2f\n",zggz[i].yingfa,zggz[i].geren,zggz[i].shifa);
          printf("\n");
-		 p=p->next;
+		 
        }
 
     printf("       =====================请你进行下一步命令！========================\n");
@@ -359,7 +322,7 @@ Other: 无返回值
 void add(zhigong *p)//增加函数
 {
     int k;
-	zhigong *q=p;
+	zhigong *q=p,*a=p;
     if(n == 100)
         {
            printf("       ==============职工人数已满，不能添加职工了===============\n");
@@ -406,6 +369,7 @@ void add(zhigong *p)//增加函数
                 {
                     p = p - n + 1;
                     wirte(p);//确认增加的操作
+                
                     return;
                 }
 
