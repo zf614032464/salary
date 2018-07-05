@@ -54,11 +54,11 @@ Other: 无返回值
 void read(zhigong *head)    //文件读取
 {
     fstream f("gz.dat",ios::in|ios::binary);//以二进制方式打开一个输入文件
-    if(!f)
+    /*if(!f)
       {
          printf("Cannot open file\n");
          abort();
-      }
+      }*/
 
     zhigong *p,*q;
     head->prior = head;
@@ -88,7 +88,7 @@ void read(zhigong *head)    //文件读取
 
     p->prior->next=p->next;
     p->next->prior=p->prior;   
-    n = n - 1;//eof()函数多执行了一次
+    n = n - 1;               //eof()函数多执行了一次
     f.close();
    
  }
