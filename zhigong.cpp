@@ -51,7 +51,7 @@ Input: 数组作为形参，地址作为实参
 Other: 无返回值
 *********************************************/
 
-void read(zhigong zggz[])    //文件读取
+void read(zhigong *head)    //文件读取
 {
     fstream f("gz.dat",ios::in|ios::binary);//以二进制方式打开一个输入文件
     if(!f)
@@ -60,14 +60,25 @@ void read(zhigong zggz[])    //文件读取
          abort();
       }
 
+    zhigong *p,*q;
+    head->prior = head;
+    head->next = head;
+    p = head;
     for(int i=0; i < 100; i++)
       {
 
           if(!f.eof())//判断文件是否到达末尾 
              {
                 n++;//职工人数加1
-                f>>zggz[i].id>>zggz[i].name>>zggz[i].gangwei>>zggz[i].xinji>>zggz[i].zhiwu>>zggz[i].jixiao>>zggz[i].yingfa>>zggz[i].geren>>zggz[i].shifa;
-              }//从文件读取数据到结构体数组
+                q = (zhigong *)malloc(sizeof(zhigong));
+                f>>q->id>>q->name>>q->gangwei>>q->xinji>>q->zhiwu>>q->jixiao>>q->yingfa>>q->geren>>q->shifa;
+                p->next = q;           //p的下节点指向q
+		        head->prior = q;       //head的前节点指向q
+		        q->prior = p;          //q的前节点指向p
+                q->next = head;        //q的下节点指向head
+                p = q;
+                //f>>zggz[i].id>>zggz[i].name>>zggz[i].gangwei>>zggz[i].xinji>>zggz[i].zhiwu>>zggz[i].jixiao>>zggz[i].yingfa>>zggz[i].geren>>zggz[i].shifa;
+              }//从文件读取数据到双向链表数据域里 
 
            else
                {
@@ -75,8 +86,11 @@ void read(zhigong zggz[])    //文件读取
                }	
       }
 
+    p->prior->next=p->next;
+    p->next->prior=p->prior;   
     n = n - 1;//eof()函数多执行了一次
     f.close();
+   
  }
 
 /********************************************
@@ -86,7 +100,7 @@ Calls By: main()
 Input: 数组作为形参，地址作为实参
 Other: 地址为返回值
 *********************************************/
-zhigong *createlist(zhigong zggz[])//创建有n个元素的双向链表 
+/*zhigong *createlist(zhigong zggz[])//创建有n个元素的双向链表 
 {
     zhigong *head, *p, *q;
     head = (zhigong *)malloc(sizeof(zhigong));//为头部指针分配内存空间
@@ -112,7 +126,7 @@ zhigong *createlist(zhigong zggz[])//创建有n个元素的双向链表
         p = q;                 //q赋值给p
     }
     return head;
-}
+}*/
 
 
 /********************************************
@@ -574,11 +588,12 @@ Return: 0
 *********************************************/
 int main()
 {
-    zhigong zggz[M];
+    //zhigong zggz[M];
     char m[M];
     zhigong *head;
-    read(zggz);
-    head = createlist(zggz);
+    head = (zhigong *)malloc(sizeof(zhigong));//为头部指针分配内存空间
+    read(head);
+    //head = createlist(zggz);
 	printf("       ###   欢迎使用广西民族大学软件与信息安全学院职工工资管理系统   ###\n");
     printf("       请选择<1-7>：                                                     \n");
 	printf("       ==================================================================\n");
